@@ -1,0 +1,151 @@
+{% extends "exp/base_user.html" %}
+{% block title %}Añadir Pedido{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+		  <a href="{ url 'domicilios:api_index_pedido' %}" class="ui teal icon huge button">
+			<i class="express-atras icon"></i>
+		  </a>
+		  <a class="ui olive label">Nuevo Pedido</a>
+		</div>
+	</div>
+	{% if mensaje %}
+  <div class="ui center aligned container column">
+	<div class="ui {{ mensaje.tipo }} message">
+	  <div class=" content">
+		<div class="header">
+		  {{ mensaje.texto }}
+		</div>
+	  </div>
+	</div>
+  </div>
+  {% endif %}
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" action="{% url 'pedido:add_pedido' %}" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">Datos del Cliente</h2>
+	    <div class="three fields">
+	    	<div class="field {% if formP.cliente.errors %}error{% endif %}">
+	    		<label>Cliente</label>
+				<div class="field {% if formP.cliente.errors %}error{% endif %} ui action input">
+					{{ formP.cliente }}
+					<a href="#" id="add-cliente" class="ui olive icon button"><i class="plus icon"></i></a>
+				</div>
+			</div>
+	      <div class="field {% if formP.tipo_pago.errors %}error{% endif %}">
+	      	<label>Tipo de Pago</label>
+	        {{ formP.tipo_pago }}
+	      </div>
+				<div class="field {% if formP.tienda.errors %}error{% endif %}">
+					<label>Tienda</label>
+					{{ formP.tienda  }}
+				</div>
+	    </div>
+			<h2 class="ui header"></h2>
+	    <div class="two fields">
+	      <div class="field {% if formP.num_pedido.errors %}error{% endif %}">
+	      	<label>Número Pedido</label>
+	        {{ formP.num_pedido }}
+	      </div>
+	      <div class="field {% if formP.alistador.errors %}error{% endif %}">
+	      	<label>Alistador</label>
+	        {{ formP.alistador }}
+	      </div>
+	    </div>
+			<h2 class="ui header"></h2>
+	      <div class="field {% if formP.observacion.errors %}error{% endif %}">
+	        {{ formP.observacion }}
+	      </div>
+			<h2 class="ui header"></h2>
+			<button type="submit" class="ui blue fluid large button">Siguiente</button>
+
+		</form>
+  </div>
+</div>
+
+<div class="ui fullscreen modal" id="cliente-form">
+  <i class="close icon"></i>
+  <div class="header">
+    Nuevo Cliente
+  </div>
+  <div class="image content">
+    <div class="description">
+      <div class="ui header"></div>
+      <form method="POST" class="ui form">
+      	{% csrf_token %}
+				<div class="four fields">
+					<div class="field {% if form.first_name.errors %}error{% endif %}">
+						<label>Nombre</label>
+						{{ formC.first_name }}
+					</div>
+					<div class="field {% if form.last_name.errors %}error{% endif %}">
+						<label>Apellido</label>
+						{{ formC.last_name }}
+					</div>
+					<div class="field {% if form.tipo_id.errors %}error{% endif %}">
+						<label>Tipo de Indentificación</label>
+						{{ formC.tipo_id }}
+					</div>
+					<div class="field {% if form.identificacion.errors %}error{% endif %}">
+						<label>Identificación</label>
+						{{ formC.identificacion }}
+					</div>
+				</div>
+				<div class="four fields">
+					<div class="field {% if form.telefono_celular.errors %}error{% endif %}">
+						<label>Telefono Celular</label>
+						{{ formC.telefono_celular }}
+					</div>
+					<div class="field {% if form.telefono_fijo.errors %}error{% endif %}">
+						<label>Telefono Fijo</label>
+						{{ formC.telefono_fijo }}
+					</div>
+					<div class="field {% if form.direccion.errors %}error{% endif %}">
+						<label>Dirección</label>
+						{{ formC.direccion }}
+					</div>
+					<div class="field {% if form.barrio.errors %}error{% endif %}">
+						<label>Barrio</label>
+						{{ formC.barrio }}
+					</div>
+				</div>
+				<div class="four fields">
+					<div class="field {% if form.zona.errors %}error{% endif %}">
+						<label>Zona</label>
+						{{ formC.zona }}
+					</div>
+					<div class="field {% if form.ciudad.errors %}error{% endif %}">
+						<label>Ciudad</label>
+						{{ formC.ciudad }}
+					</div>
+				</div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button" >
+      Cancelar
+    </div>
+    <button type="submit" class="ui olive right labeled button" id="save">
+    	Save
+    </button>
+	</form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block addjs %}
+<script>
+	$( document ).ready(function() {
+		$('.ui.dropdown').dropdown();
+	});
+	$(function(){
+		$('#add-cliente').click(function(){
+			$('#cliente-form').modal('show');
+		});
+	});
+</script>
+{% endblock %}

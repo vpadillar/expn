@@ -1,0 +1,46 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Reporte{% endblock %}
+{% block addcss_user %}<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">{% endblock %}
+{% block content_user %}
+<style type="text/css"></style>
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'usuario:index_general' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Reporte</a>
+    </div>
+  </div>
+</div>
+<div class="one column row">
+  <div class="center aligned column">
+
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' or request.session.cargo != 'ADMINISTRADOR' %}
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'reporte:pedidos_reporte' %}"class="item">
+        <h3><i class="material-icons huge">list</i></h3>
+        Pedidos
+      </a>
+    </div>
+    {% endif %}
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR'  or request.session.cargo != 'ADMINISTRADOR' %}
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'reporte:empleados_reporte' %}"class="item">
+        <h3><i class="material-icons huge">list</i></h3>
+        Listado de Empleados
+      </a>
+    </div>
+    {% endif %}
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' or request.session.cargo != 'ADMINISTRADOR' %}
+      <div class="ui vertical compact labeled icon inverted teal huge menu">
+        <a href="{% url 'reporte:tiempos_empleado_reporte' %}"class="item">
+          <h3><i class="material-icons huge">list</i></h3>
+          Carga de Empleado
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

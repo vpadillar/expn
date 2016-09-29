@@ -1,0 +1,15 @@
+{% extends "exp/base.html" %}
+{% load staticfiles %}
+{% block addcss %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% block addcss_user %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+  <div class="ui grid">
+    {% block content_user %}
+
+    {% endblock %}
+    {% include "exp/header_user.html" %}
+  </div>
+{% endblock %}

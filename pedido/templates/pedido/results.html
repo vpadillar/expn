@@ -1,0 +1,35 @@
+{% if not items %}
+<thead>
+	<tr>
+		<td>
+			<p>No encontramos coincidencias</p>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if items.count > 0 %}
+	<thead>
+		<tr>
+			<td>Codigo</td>
+			<td>Descripcion</td>
+			<td>Valor unitario</td>
+			<td>cantidad</td>
+			<td>añadir</td>
+		</tr>
+	</thead>
+		{% for item in items %}
+			<tr>
+				<td id="codigo">{{ item.codigo }}</td>
+				<td id="descripcion">{{ item.descripcion }}</td>
+				<td id="valor_unitario">{{ item.valor_unitario|intcomma }}</td>
+				<td><input type="number" min="0" id="cantidad"></td>
+				<td id="add"><button>add</button></td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr><td>
+
+		None! sorry</td></tr>
+	{% endif %}
+
+{% endif %}

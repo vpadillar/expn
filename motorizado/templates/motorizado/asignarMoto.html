@@ -1,0 +1,87 @@
+{% extends "exp/base_user.html" %}
+{% block title %}Asignar Moto{% endblock %}
+{% block addcss %}
+<style type="text/css">
+	#id_tipo{
+		height: 45px !important;
+		padding-top: 10px !important;
+		padding-bottom: 12px !important;
+	}
+
+	button[type="submit"]{
+		margin-top: 10px !important;
+	}
+</style>
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+			<a href="{% url 'motorizado:index_moto' %}" class="ui teal icon huge button">
+				<i class="express-atras icon"></i>
+			</a>
+			<a class="ui olive label">Asignar Moto</a>
+		</div>
+	</div>
+	{% if mensaje %}
+  		<div class="ui center aligned container row">
+    		<div class="ui {{ mensaje.tipo }} message">
+    			<div class=" content">
+        			<div class="header">
+          				{{ mensaje.texto }}
+        			</div>
+		        </div>
+    		</div>
+  		</div>
+  	{% endif %}
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+	  {% if error %}
+			 <div class="ui center aligned container row">
+    <div class="ui negative message">
+      <div class=" content">
+        <div class="header">
+          {{ error }}
+        </div>
+      </div>
+    </div>
+  </div>
+		{% else %}
+		<form method="POST" action="{% url 'motorizado:asignar_moto' %}" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">&nbsp;</h2>
+	    <div class="four fields">
+				<div class="field {% if form.empleado.errors %}error{% endif %}">
+					{{ form.empleado }}
+				</div>
+				<div class="field {% if form.tipo.errors %}error{% endif %}">
+		      {{ form.tipo }}
+		    </div>
+				<div class="field {% if form.licencia.errors %}error{% endif %}">
+		      {{ form.licencia }}
+		    </div>
+				<div class="field {% if form.moto.errors %}error{% endif %}">
+					{{ form.moto }}
+				</div>
+	    </div>
+
+			<button type="submit" class="ui olive fluid large button">Registrar</button>
+
+		</form>
+		{% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script type="text/javascript">
+$( document ).ready(function() {
+	var Empleado = document.getElementById('id_empleado');
+	var Moto = document.getElementById('id_moto');
+	Empleado.options[0].innerHTML = "Empleado";
+	Moto.options[0].innerHTML = "Placa";
+	$('.ui.dropdown').dropdown();
+});
+</script>
+{% endblock %}

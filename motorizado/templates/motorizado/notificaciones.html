@@ -1,0 +1,47 @@
+{% extends "exp/base_user.html" %}
+{% block title %}Notificaciones Moto{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'usuario:index_general' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Notificaciones</a>
+    </div>
+	</div>
+</div>
+<div class="ui center container ">
+
+    <h2>Soats</h2>
+		<div class="ui divided selection list">
+    	{%for moto in expired_soat%}
+          <a href="{% url 'motorizado:edit_moto' moto.id %}" class="item">
+						<div class="ui red horizontal label">Vence</div>
+		        {{moto.soat.fecha_expiracionS}} - Para la Moto con placa: {{moto}}
+          </a>
+        {% empty %}
+				<a class="item">
+					<div class="ui green horizontal label">Bien</div>
+					No se encuentra <strong>Soat</strong> proxima a vencer
+				</a>
+    	{%endfor%}
+		</div>
+
+    <h2>Tecnico-Mecanica</h2>
+    <div class="ui divided selection list">
+    {%for moto in expired_tecno%}
+			<a href="{% url 'motorizado:edit_moto' moto.id %}" class="item">
+				<div class="ui red horizontal label">Vence</div>
+				 {{moto.tecno.fecha_expiracionT}} - Para la Moto con placa: {{moto}}
+			</a>
+        {% empty %}
+				<a class="item">
+					<div class="ui green horizontal label">Bien</div>
+					No se encuentra <strong>Tecnico-Mecanica</strong> proxima a vencer
+				</a>
+    {%endfor%}
+		</div>
+
+</div>
+{% endblock %}

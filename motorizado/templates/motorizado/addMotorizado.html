@@ -1,0 +1,129 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Añadir Moto{% endblock %}
+{% block addcss_user %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/flora.datepick.css' %}">
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'usuario:index' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Nuevo Motorizado</a>
+    </div>
+	</div>
+	{% if mensaje %}
+  		<div class="ui center aligned container row">
+    		<div class="ui {{ mensaje.tipo }} message">
+    			<div class=" content">
+        			<div class="header">
+          				{{ mensaje.texto }}
+        			</div>
+		        </div>
+    		</div>
+  		</div>
+  	{% endif %}
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		{% if error %}
+			<div class="ui center aligned container row">
+    			<div class="ui negative message">
+    				<div class=" content">
+        				<div class="header">
+          					{{ error}}
+        				</div>
+		        	</div>
+    			</div>
+  			</div>
+		{% else %}
+		<form method="POST" action="{% url 'add_motorizado' %}" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">&nbsp;</h2>
+	    <div class="four fields">
+				<div class="field {% if formMotorizado.empleado.errors %}error{% endif %}">
+					{{ formMotorizado.empleado}}
+				</div>
+				<div class="field {% if formMotorizado.licencia.errors %}error{% endif %}">
+					{{ formMotorizado.licencia }}
+				</div>
+				<div class="field {% if formMotorizado.identifier.errors %}error{% endif %}">
+					{{ formMotorizado.identifier }}
+				</div>
+	    </div>
+			<h2 class="ui teal header">Descripción General</h2>
+	    <div class="four fields">
+				<div class="field {% if formMoto.tipo.errors %}error{% endif %}">
+					{{ formMoto.tipo }}
+				</div>
+				<div class="field {% if formMoto.marca.errors %}error{% endif %}">
+					{{ formMoto.marca }}
+				</div>
+				<div class="field {% if formMoto.placa.errors %}error{% endif %}">
+					{{ formMoto.placa }}
+				</div>
+				<div class="field {% if formMoto.t_propiedad.errors %}error{% endif %}">
+					{{ formMoto.t_propiedad }}
+				</div>
+	    </div>
+			<div class="ui stackable two column grid">
+			  <div class="column">
+					<h2 class="ui teal header">Tecnomecanica</h2>
+					<div class="field {% if formTecno.numeroT.errors %}error{% endif %}">
+			      {{ formTecno.numeroT }}
+			    </div>
+					<div class="two fields">
+						<div class="field {% if formTecno.fecha_expedicionT.errors %}error{% endif %}">
+							{{ formTecno.fecha_expedicionT }}
+						</div>
+						<div class="field {% if formTecno.fecha_expiracionT.errors %}error{% endif %}">
+							{{ formTecno.fecha_expiracionT }}
+						</div>
+					</div>
+			  </div>
+			  <div class="column">
+					<h2 class="ui teal header">Soat</h2>
+					<div class="field {% if formSoat.numeroS.errors %}error{% endif %}">
+			      {{ formSoat.numeroS }}
+			    </div>
+					<div class="two fields">
+						<div class="field {% if formSoat.fecha_expedicionS.errors %}error{% endif %}">
+							{{ formSoat.fecha_expedicionS }}
+						</div>
+						<div class="field {% if formSoat.fecha_expiracionS.errors %}error{% endif %}">
+							{{ formSoat.fecha_expiracionS }}
+						</div>
+					</div>
+			  </div>
+			</div>
+
+			<button type="submit" class="ui olive fluid large button">Registrar</button>
+
+		</form>
+		{% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script type="text/javascript" src="{% static 'js/jquery.plugin.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.datepick.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.datepick-es.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/browser.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var b = new Browser();
+		if (b.name != "chrome"){
+			$('#id_fecha_expedicionT').datepick();
+			$('#id_fecha_expiracionT').datepick();
+			$('#id_fecha_expedicionS').datepick();
+			$('#id_fecha_expiracionS').datepick();
+		}
+		var Empleado = document.getElementById('id_empleado');
+		Empleado.options[0].innerHTML = "Empleado";
+		$('.ui.dropdown').dropdown();
+	});
+</script>
+{% endblock %}

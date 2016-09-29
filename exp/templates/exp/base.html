@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>{% block title %}{% endblock %} - Express Del Norte</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/semantic.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <!--script type="text/javascript" src="{{ STATIC_URL }}js/jquery.plugin.js"></script-->
+    <script type="text/javascript">
+      function init(){
+        $('div.ui.labeled.huge.input').prepend('<a href="/" class="ui teal icon huge button">Inicio</a>');
+        if($('a[href="/"]').length > 1){
+          $('a[href="/"]:first').remove();
+        }
+        $.ajax({
+            url: '/motorizado/ws/notificaciones/?q=&page=1',
+            dataType: 'json',
+            type: 'get',
+            success: function(response) {
+                if (response.object_list.length > 0){
+                    $('.express-notificacion').addClass('red');
+                }
+            }
+        });
+      }
+      window.onload = init;
+    </script>
+    {% block addcss %}{% endblock %}
+  </head>
+  <body >
+    {% block content %}
+
+    {% endblock %}
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    {% block addjs %}{% endblock %}
+  </body>
+</html>

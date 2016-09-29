@@ -1,0 +1,24 @@
+<!-- { load moto_notifications %}
+{ has_exprired "check" as has_exprired_soat_tecno %} -->
+{% load staticfiles %}
+<div class="one column row">
+  <div class="column">
+    <div class="ui olive inverted bottom fixed large menu">
+      <div class="item">
+        <img src="{% static 'img/logo_express_black_and_white.svg' %}">
+      </div>
+      <div class="ui grid">
+        <div class="one computer only column row">
+          <div class="column">
+            <div class="item">
+              <h2>¡Bienvenido {{request.user.get_full_name}} a {{ request.session.empresa }}!</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="{% url 'motorizado:ws_list_noti' %}"class="ui green right icon item"><i class="express-notificacion large icon {% if has_exprired_soat_tecno %} red {% endif %} "></i></a>
+      <a href="{% url 'usuario:details_empleado' request.user.id %}"class="ui green icon item"><i class="express-perfil large icon"></i></a>
+      <a href="{% url 'usuario:user-logout' %}" class="green icon item"><i class="express-salir large icon"></i></a>
+    </div>
+  </div>
+</div>

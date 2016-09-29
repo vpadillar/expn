@@ -1,0 +1,75 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Pedidos{% endblock %}
+{% block addcss_user %}<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">{% endblock %}
+{% block content_user %}
+<style type="text/css"></style>
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'usuario:index_general' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Pedidos</a>
+    </div>
+  </div>
+</div>
+<div class="one column row">
+  <div class="center aligned column">
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' %}
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'pedido:add_admin_pedido' %}" class="item">
+        <h3><i class="material-icons huge">add_shopping_cart</i></h3>
+        Nuevo Pedido
+      </a>
+    </div>
+    {% endif %}
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' %}
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'pedido:list_pedido' %}"class="item">
+        <h3><i class="material-icons huge">list</i></h3>
+        Listado Pedidos
+      </a>
+    </div>
+    {% endif %}
+    {% if request.session.cargo == 'ADMINISTRADOR' %}
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'pedido:add_item' %}"class="item">
+        <h3><i class="material-icons huge">layers</i></h3>
+        Nuevos Items
+      </a>
+    </div>
+    {% endif %}
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' %}
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'pedido:list_item' %}"class="item">
+        <h3><i class="material-icons huge">list</i></h3>
+        Listado Items
+      </a>
+    </div>
+    {% endif %}
+    {% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' %}
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'pedido:despachar_pedido' %}" class="item">
+        <h3><i class="material-icons huge">shopping_cart</i></h3>
+        Despachar
+      </a>
+    </div>
+    {% endif %}
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'pedido:mis_pedido' %}"class="item">
+        <h3><i class="material-icons huge">shopping_cart</i></h3>
+        Mis Pedidos
+      </a>
+    </div>
+    {% if request.session.cargo == 'SUPERVISOR' or request.session.cargo == 'ADMINISTRADOR' %}
+      <div class="ui vertical compact labeled icon inverted teal huge menu">
+        <a href="{% url 'pedido:configurar_pplataforma' %}" class="item">
+          <h3><i class="material-icons huge">settings</i></h3>
+          Configuracion
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

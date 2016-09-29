@@ -1,0 +1,84 @@
+{% extends "exp/base_user.html" %}
+{% block title %}Añadir Cliente{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+			<a href="{% url 'usuario:index_cliente' %}" class="ui teal icon huge button">
+				<i class="express-atras icon"></i>
+			</a>
+			<a class="ui olive label">Nuevo Cliente</a>
+		</div>
+	</div>
+	<div class="column">
+		{% if mensaje %}
+			<div class="ui center aligned container row">
+				<div class="ui {{ mensaje.tipo }} message">
+					<div class=" content">
+						<div class="header">
+							{{ mensaje.texto }}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" action="{% url 'usuario:add_cliente' %}" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">Información Personal</h2>
+	    <div class="four fields">
+	      <div class="field {% if form.first_name.errors %}error{% endif %}">
+	        {{ form.first_name }}
+	      </div>
+	      <div class="field {% if form.last_name.errors %}error{% endif %}">
+	        {{ form.last_name }}
+	      </div>
+				<div class="field {% if form.tipo_id.errors %}error{% endif %}">
+					{{ form.tipo_id }}
+				</div>
+				<div class="field {% if form.identificacion.errors %}error{% endif %}">
+					{{ form.identificacion }}
+				</div>
+	    </div>
+
+			<h2 class="ui teal header">Información de Contacto</h2>
+	    <div class="three fields">
+	      <div class="field {% if form.telefono_celular.errors %}error{% endif %}">
+	        {{ form.telefono_celular }}
+	      </div>
+	      <div class="field {% if form.telefono_fijo.errors %}error{% endif %}">
+	        {{ form.telefono_fijo }}
+	      </div>
+				<div class="field {% if form.direccion.errors %}error{% endif %}">
+					{{ form.direccion }}
+				</div>
+	    </div>
+
+	    <div class="three fields">
+				<div class="field {% if form.barrio.errors %}error{% endif %}">
+					{{ form.barrio }}
+				</div>
+				<div class="field {% if form.ciudad.errors %}error{% endif %}">
+					{{ form.ciudad }}
+				</div>
+	      <div class="field {% if form.zona.errors %}error{% endif %}">
+	        {{ form.zona }}
+	      </div>
+	    </div>
+			<button type="submit" class="ui olive fluid large button">Registrar</button>
+
+		</form>
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script type="text/javascript">
+$( document ).ready(function() {
+	$('.ui.dropdown').dropdown();
+});
+</script>
+{% endblock %}

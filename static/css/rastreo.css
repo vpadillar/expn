@@ -1,0 +1,153 @@
+.mapa-content {
+    width: 100%;
+    border-radius: 3px;
+    border: solid 1px #ccc;
+    background-color: #fff;
+}
+.mapa-content, .map, .lista {
+    height: 600px;
+}
+.lista {
+    width: 250px;
+    border-right: 1px solid #ccc;
+    height: 100%;
+}
+.mapa {
+    text-align: inherit;
+    width: calc(100% - 250px);
+    padding: 0 !important;
+}
+.mapa iframe {
+    border: none;
+    width: 100%;
+    height: 600px;
+}
+.load {
+    display: none;
+    margin-top: 8px;
+    width: 28px;
+    height: 28px;
+}
+input[type=search] {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('/static/img/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+input[type=search]:focus {
+    outline: none;
+}
+div.c.lista {
+    padding: 0;
+}
+.contenedor {
+    height: 100%;
+    height: calc(100% - 44px);
+    overflow-y: auto;
+}
+.contenedor ul, .overlay ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.contenedor > ul, .overlay > ul {
+    padding-top: 8px;
+}
+.contenedor > ul > li, .overlay > ul > li {
+    padding-left: 16px;
+    padding-right: 16px;
+    /*border-bottom: 1px solid #ccc;*/
+    text-align: left;
+    width: 100%;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    transition: all .7s;
+}
+.overlay > ul > li{
+    height: 38px;
+    border-bottom: 1px solid #ccc;
+}
+.contenedor> ul> li:hover, .overlay > ul > li:hover {
+    background-color: #eee !important;
+}
+.contenedor> ul> li.sc {
+    background: #FFEDD2;
+}
+.contenedor> ul> li.it {
+    background: #E6FFC8;
+}
+li .item {
+    width: 100%;
+}
+li .item> span {
+    display: block;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+li .item> span.prim {
+    font-weight: bold;
+}
+li .item> span.prim> i {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+}
+li .item> span.prim> i::before {
+    content: ' - ';
+}
+li .item> span.scun.p::after {
+    content: ' Pedido(s)';
+}
+li .item> span.scun {
+    color: #777;
+    font-size: 14px;
+}
+li .item> input[type=radio] {
+    display: none;
+}
+li .item> ul {
+    color: #666;
+}
+li .item> ul> li {
+    font-size: 14px;
+}
+.fondo_noti {
+    background-color: red;
+}
+.ov{
+    display: none;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.overlay > ul {
+    width: auto;
+    background: white;
+    max-height: 400px;
+    overflow: auto;
+    opacity: 1;
+}

@@ -1,0 +1,74 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Despachar Pedidos{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'pedido:index_pedido' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Despachar Pedidos</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				{% csrf_token %}
+				Presiona Enter en el campo de busqueda para la asignacion de pedidos
+					<div class="ui icon fluid input">
+					<input type="text" name="search" id="search" autofocus placeholder="Buscar por codigo del item">
+					<i class="search icon"></i>
+				</div>
+			</div>
+		</div>
+		<h4 class="ui horizontal divider header">
+			<i class="express-listar icon"></i>
+			Resultados
+		</h4>
+		<div class="column row">
+			<div class="column">
+				<table id="search-results" class="ui very basic striped unstackable table">
+					<thead>
+						<tr>
+							<th>Numero</th>
+							<th>Empresa</th>
+							<th>Supervisor</th>
+							<th>Alistador</th>
+							<th>Motorizado</th>
+							<th>Total</th>
+							<th class="center aligned">Despachado</th>
+							<th class="center aligned">Entregado</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+  </div>
+</div>
+<div id="modal1" class="modal" title="Confirmar entrega">
+   <h5><span class="cont"></span></h5>
+</div>
+<div id="mod_pedido" class="modal" title="Confirmar entrega">
+   <h5><span class="conte"></span></h5>
+</div>
+<div id="men" class="modal" title="Confirmar entrega">
+   <h5><span class="cont2"></span></h5>
+</div>
+{% endblock %}
+
+{% block addjs %}
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="{% static 'api/js/despachar_pedido.js' %}"></script>
+	<script type="text/javascript" src="{% static 'api/js/tabla_ajax_confirmar_pedido.js' %}"></script>
+
+	<!--script src="{{ STATIC_URL }}api/js/itemsSearch.js" ></script-->
+
+{% endblock %}

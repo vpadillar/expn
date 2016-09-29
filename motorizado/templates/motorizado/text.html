@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+		    'url': 'http://104.236.33.228:8000/reporte/list/',
+		     headers: {
+		       'Authorization':'Basic xxxxxxxxxxxxx',
+		   },
+		    success: function (data){
+		        console.log(data);
+		    }
+		});
+		</script>
+</head>
+<body>
+	<!--form action="{% url "pedido:aceptar_pwservice" %}" method="post">
+		<input id="id_despachado" name="despachado" type="checkbox">
+		<input type="text" name="motorizado">
+		<input type="text" name="pedido">
+		<input type="submit" name="save"-->
+		<!--form action="{% url "usuario:ws_loguin" %}" method="post">
+			<input id="id_despachado" name="username" type="text">
+			<input type="text" name="password">
+			<input type="submit" name="save"-->
+			<form action="{% url "pedido:aceptar_pwservice" %}" method="post">
+				<input type="text" name="motorizado">
+				<input type="text" name="pedido">
+				<input type="submit" name="save">
+	</form>
+</body>
+</html>

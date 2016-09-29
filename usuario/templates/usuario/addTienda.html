@@ -1,0 +1,76 @@
+{% extends "exp/base_user.html" %} {% block title %}Añadir Empleado{% endblock %} {% block addcss_user %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/flora.datepick.css' %}"> {% endblock %} {% block content_user %}
+<div class="one column row">
+
+	<div class="column">
+		<div class="ui labeled huge input">
+			<a href="{% url 'usuario:index_tienda' %}" class="ui teal icon huge button">
+				<i class="express-atras icon"></i>
+			</a>
+			<a class="ui olive label">Nueva Tienda</a>
+		</div>
+	</div>
+	{% if mensaje %}
+	<div class="ui center aligned container row">
+		<div class="ui {{ mensaje.tipo }} message">
+			<div class=" content">
+				<div class="header">
+					{{ mensaje }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+	<div class="center aligned column">
+		<form method="POST" action="{% url 'usuario:add_tienda' %}" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">&nbsp;</h2>
+			<div class="four fields">
+				<div class="field {% if form.nit.errors %}error{% endif %}">
+					{{ form.nit }}
+				</div>
+				<div class="field {% if form.nombre.errors %}error{% endif %}">
+					{{ form.nombre }}
+				</div>
+				<div class="field {% if form.referencia.errors %}error{% endif %}">
+					{{ form.referencia }}
+				</div>
+				<div class="field {% if form.direccion.errors %}error{% endif %}">
+					{{ form.direccion }}
+				</div>
+			</div>
+
+			<div class="six fields">
+				<div class="field {% if form.ciudad.errors %}error{% endif %}">
+					{{ form.url }}
+				</div>{{ STATIC_URL }}
+				<div class="field {% if form.ciudad.errors %}error{% endif %}">
+					{{ form.ciudad }}
+				</div>
+				<div class="field {% if form.fijo.errors %}error{% endif %}">
+					{{ form.fijo }}
+				</div>
+				<div class="field {% if form.celular.errors %}error{% endif %}">
+					{{ form.celular }}
+				</div>
+				<div class="field {% if form.latitud.errors %}error{% endif %}">
+					{{ form.latitud }}
+				</div>
+				<div class="field {% if form.longitud.errors %}error{% endif %}">
+					{{ form.longitud }}
+				</div>
+			</div>
+			<button type="submit" class="ui olive fluid large button">Registrar</button>
+
+		</form>
+	</div>
+</div>
+{% endblock %} {% block addjs %}
+<script type="text/javascript" src="{% static 'js/jquery.plugin.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.datepick.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.datepick-es.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/browser.js' %}"></script>
+{% endblock %}

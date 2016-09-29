@@ -1,0 +1,100 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Editar Pedido{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+		  <a href="{% url 'pedido:index_pedido' %}" class="ui teal icon huge button">
+			<i class="express-atras icon"></i>
+		  </a>
+		  <a class="ui olive label">Editar Pedido</a>
+		</div>
+	</div>
+	{% if mensaje %}
+  <div class="ui center aligned container column">
+	<div class="ui {{ mensaje.tipo }} message">
+	  <div class=" content">
+		<div class="header">
+		  {{ mensaje.texto }}
+		</div>
+	  </div>
+	</div>
+  </div>
+  {% endif %}
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">Datos del Cliente</h2>
+	    <div class="three fields">
+				<div class="field {% if pedidoForm.cliente.errors %}error{% endif %}">
+	    		<label>Cliente</label>
+				<div class="field {% if pedidoForm.cliente.errors %}error{% endif %} ui action input">
+					{{ pedidoForm.cliente }}
+				</div>
+			</div>
+	      <div class="field {% if pedidoForm.tipo_pago.errors %}error{% endif %}">
+					<label>Tipo de Pago</label>
+	        {{ pedidoForm.tipo_pago }}
+	      </div>
+
+				<div class="field {% if pedidoForm.tienda.errors %}error{% endif %}">
+					<label>Tienda</label>
+					{{ pedidoForm.tienda  }}
+				</div>
+	    </div>
+			<h2 class="ui header"></h2>
+	    <div class="three fields">
+	      <div class="field {% if pedidoForm.num_pedido.errors %}error{% endif %}">
+					<label>Numero de Pedido</label>
+	        {{ pedidoForm.num_pedido }}
+	      </div>
+	      <div class="field {% if pedidoForm.supervisor.errors %}error{% endif %}">
+					<label>Supervisor</label>
+					{{ pedidoForm.supervisor }}
+				</div>
+	      <div class="field {% if pedidoForm.alistador.errors %}error{% endif %}">
+					<label>Alistador</label>
+	        {{ pedidoForm.alistador }}
+	      </div>
+
+				<div class="field {% if pedidoForm.motorizado.errors %}error{% endif %}">
+					<label>Motorizado</label>
+					{{ pedidoForm.motorizado }}
+				</div>
+	    </div>
+			<h2 class="ui header"></h2>
+	      <div class="field {% if formP.observacion.errors %}error{% endif %}">
+	        {{ pedidoForm.observacion }}
+	      </div>
+			<h2 class="ui header"></h2>
+			<button type="submit" class="ui blue fluid large button">Siguiente</button>
+
+		</form>
+  </div>
+</div>
+<div id="menm" title="Registrar Pedido">
+	<h3>No existen empleados para esta tienda.</h3>
+</div>
+<div id="mens" title="Registrar Pedido">
+	<h3>No existen supervisor para esta tienda.</h3>
+</div>
+<div id="mena" title="Registrar Pedido">
+	<h3>No existen alistador para esta tienda.</h3>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script src="{% static 'api/js/jquery.js' %}"></script>
+<script src="{% static 'api/js/jquery.min.js' %}"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="{% static 'api/js/motorizado_tienda_edit.js' %}"></script>
+<script>
+	$( document ).ready(function() {
+
+	});
+</script>
+{% endblock %}

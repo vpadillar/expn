@@ -1,0 +1,79 @@
+{% extends "exp/base.html" %}
+{% block title %}Iniciar Sesión{% endblock %}
+{% block addcss %}<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">{% endblock %}
+{% block content %}
+<style type="text/css">
+    body{
+      height: 0;}
+      body > .grid {
+        height: auto;}
+  </style>
+<div class="ui two column middle aligned very relaxed stackable container grid" id="div-form">
+  <div class="center aligned column">
+    <img class="ui fluid image" src="{% static 'img/logo_express.svg' %}">
+  </div>
+  <div class="center aligned column">
+    <form class="ui large form {% if form.non_field_errors %}error{% endif %}" method="post" action="." id="form-login">
+      {% csrf_token %}
+      <div class="field {% if form.non_field_errors %}error{% endif %}">
+        <div class="ui left icon input">
+          <i class="user icon"></i>
+          {{form.username}}
+        </div>
+      </div>
+      <div class="field {% if form.non_field_errors %}error{% endif %}">
+        <div class="ui left icon input">
+          <i class="lock icon"></i>
+          {{form.password}}
+        </div>
+      </div>
+      <input class="ui fluid large olive submit button" value="Ingresar" type="submit">
+      <div class="ui error message">
+        <ul class="list">
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </form>
+    <div id="notpassword">
+      <a  href="javascript:lanzar_modal();">¿Olvidastes tu contraseña?</a>
+    </div>
+  </div>
+</div>
+
+<!--Lanzar Modal-->
+<script type="text/javascript">
+  function lanzar_modal() {
+    $('.ui.basic.modal').modal('show');
+  }
+  alert("jajaja");
+</script>
+
+<div class="ui basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    ¿Olvidastes tu contraseña?
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="help circle icon"></i>
+    </div>
+    <div class="description">
+      <ul>
+        <li>Recuerda que tu usuario y contraseña fue proporcionada por administrador</li>
+        <li>Para recuperar tu usuario y contraseña, contacta con tu administrador</li>
+        <li>Para mayor informacion <strong>soporte@expressdelnorte.com.co</strong></li>
+      </ul>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui green basic inverted deny button">
+        <i class="remove circle icon"></i>
+        Cerrar
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

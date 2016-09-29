@@ -1,0 +1,91 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Editar Motorizado{% endblock %}
+{% block addcss_user %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/flora.datepick.css' %}">
+	<style type="text/css">
+		#id_tipo{
+			height: 45px !important;
+			padding-top: 10px !important;
+			padding-bottom: 12px !important;
+		}
+	</style>
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+		  <a href="{% url 'motorizado:list_motorizado' %}" class="ui teal icon huge button">
+			<i class="express-atras icon"></i>
+		  </a>
+		  <a class="ui olive label">Editar Motorizado</a>
+		</div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" class="ui form">
+			{% csrf_token %}
+				<h2 class="ui header"></h2>
+	      <div class="field">
+	        <div id="qr" style="height:100px;width=100px;border: 3px solid #73AD21;"></div>
+	      </div>
+			<h2 class="ui teal header">Descripción General</h2>
+		    <div class="five fields">
+					<div class="field {% if form.empleado.errors %}error{% endif %}">
+						{{ form.empleado }}
+					</div>
+					<div class="field {% if form.tipo.errors %}error{% endif %}">
+						{{ form.tipo }}
+					</div>
+					<div class="field {% if form.licencia.errors %}error{% endif %}">
+						{{ form.licencia }}
+					</div>
+					<div class="field {% if form.identifier.errors %}error{% endif %}">
+						{{ form.identifier }}
+					</div>
+					<div class="field {% if form.moto.errors %}error{% endif %}">
+						{{ form.moto }}
+					</div>
+
+		    </div>
+
+			<button type="submit" class="ui olive fluid large button">Actualizar</button>
+
+		</form>
+  </div>
+</div>
+<input type="hidden" id="empresa" value="{{ empresa }}">
+<input type="hidden" id="motorizado" value="{{ motorizado }}">
+{% endblock %}
+
+{% block addjs %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.plugin.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.datepick.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.datepick-es.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}api/js/md5.js">
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('.ui.dropdown').dropdown();
+	});
+</script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script type="text/javascript" src="{% static 'api/js/jquery.qrcode.js' %}"></script>
+<script type="text/javascript">
+	var socket = io("http://"+{{ host_node }});
+		socket.emit('who-i-am',{'web_id':calcMD5($('#empresa').val()),'motorizado':$('#motorizado').val()})
+  	//socket.emit('hola', {'web_id': '123456', 'cell_id': 'Hola mundo'});
+  	socket.on('you-are',function(data){
+			console.log('llego');
+  		console.log(data);
+				$("#qr").qrcode({
+				    "size": 100,
+				    "color": "#000",
+				    "text": data.id
+				});
+  	});
+		socket.on('ionic-qr',function(data){
+  		$('#id_identifier').val(data.imei);
+  	});
+</script>
+{% endblock %}

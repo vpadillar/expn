@@ -1,0 +1,53 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Ecoga un Motorizado{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+			<a href="{% url 'pedido:asignar_motorizado_pedido' %}" class="ui teal icon huge button">
+			<i class="express-atras icon"></i>
+			</a>
+			<a class="ui olive label">Asignar Motorizado al pedido {{pedido}}</a>
+		</div>
+	</div>
+</div>
+
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				<h2 class="ui olive header">Motorizados a Asignar</h2>
+				<form method="POST" action="{% url 'pedido:motorizado_cerrar_asignar_pedido' pedido %}"  class="ui form">
+					{% csrf_token %}
+					<input type="hidden" name="pedido" value="{{pedido}}" required>
+					<div class="two fields">
+						<div class="field {% if form.item.errors %}error{% endif %}">
+							<select class="ui search dropdown" required name="motorizado">
+								<option value="">Motorizado</option>
+								{% for motorizado in motorizados %}
+								<option value="{{ motorizado.empleado.identificacion }}">{{ motorizado.empleado.first_name|title }} {{ motorizado.empleado.last_name|title }} {{motorizado.empleado.empresa.first_name}}</option>
+								{% endfor %}
+								{% for motorizadoE in motorizadosE %}
+								<option value="{{ motorizadoE.empleado.identificacion }}">{{ motorizadoE.empleado.first_name|title }} {{ motorizadoE.empleado.last_name|title }} {{motorizadoE.empleado.empresa.first_name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="field">
+							<button type="submit" class="ui blue fluid  button">Asignar</button>
+			      </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script>
+	$( document ).ready(function() {
+		$('.ui.dropdown').dropdown();
+	});
+</script>
+{% endblock %}

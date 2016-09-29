@@ -1,0 +1,59 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Reporte Pedidos{% endblock %}
+{% block content_user %}
+
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'reporte:index_reporte' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Listar Pedidos</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				{% csrf_token %}
+					<div class="ui icon fluid input">
+					<input type="text" name="search" id="search" autofocus placeholder="Buscar por pedido">
+					<i class="search icon"></i>
+				</div>
+			</div>
+		</div>
+		<h4 class="ui horizontal divider header">
+			<i class="express-listar icon"></i>
+			Resultados
+		</h4>
+		<div class="column row">
+			<div class="column">
+				<table id="search-results" class="ui very basic striped unstackable table">
+					<thead>
+						<tr  class="center aligned">
+							<th>Numero</th>
+							<th>Motorizado</th>
+							<th>Alistado</th>
+							<th>Despachado</th>
+							<th>Entregado</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<script type="text/javascript" src="{% static 'api/js/tabla_ajax_reporte_pedidos.js' %}"></script>
+	<script src="{% static 'api/js/reporte_search_pedidos.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "exp/base_user.html" %}
+{% block title %}Info Pedido{% endblock %}
+{% block content_user %}
+{% load humanize %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+			{% if request.session.cargo == 'ADMINISTRADOR' or request.session.cargo == 'SUPERVISOR' %}
+			<a href="{% url 'pedido:index_pedido' %}" class="ui teal icon huge button">
+			<i class="express-atras icon"></i>
+			</a>
+			{% endif %}
+			{% if request.session.cargo == "ALISTADOR" or request.session.cargo == "MOTORIZADO" %}
+			<a href="{% url 'pedido:mis_pedido' %}" class="ui teal icon huge button">
+			<i class="express-atras icon"></i>
+			</a>
+			{% endif %}
+			<a class="ui olive label">Informacion del pedido {{ pedido.num_pedido }}</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui container grid" style="margin-bottom:50px;">
+	<div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				<table class="ui very basic striped unstackable table">
+				  <thead>
+				    <tr>
+				      <th>Numero del Pedido</th>
+				      <th>Supervidor</th>
+				      <th>Alistador</th>
+					  <th>Motorizado</th>
+					  <th>Total</th>
+					  <th><strong>Entregado</strong></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+							<td>{{ pedido.num_pedido }}</td>
+				      <td>{{ pedido.supervisor.first_name|title }} {{ pedido.supervisor.last_name|title }}</td>
+				      <td>{{ pedido.alistador.first_name|title }} {{ pedido.alistador.last_name|title }}</td>
+				      <td>{{ pedido.motorizado.first_name|title }} {{ pedido.motorizado.last_name|title }}</td>
+							<td>COP $ {% if pedido.total %}{{pedido.total|intcomma}} {% else %}0 {% endif %}</td>
+						<td><strong>{% if tiempo.entregado %} Si {% else %} No {% endif %}</strong></td>
+				    </tr>
+				  </tbody>
+				</table>
+				<h4 class="ui horizontal divider header">
+				  <i class="user icon"></i>
+				  Cliente
+				</h4>
+				<table class="ui very basic striped unstackable table">
+				  <thead>
+				    <tr>
+				      <th>Nombre</th>
+				      <th>Identificación</th>
+				      <th>Email</th>
+							<th>Telefono</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+							<td>{{ pedido.cliente.first_name|title }} {{ pedido.cliente.last_name|title }}</td>
+				      <td>{{ pedido.cliente.identificacion }}</td>
+				      <td>{{ pedido.cliente.email }}</td>
+				      <td>{{ pedido.cliente.telefono_celular }}</td>
+				    </tr>
+				  </tbody>
+				</table>
+				<h4 class="ui horizontal divider header">
+				  <i class="express-empresas icon"></i>
+				  Empresa
+				</h4>
+				<table class="ui very basic striped unstackable table">
+				  <thead>
+				    <tr>
+				      <th>Nombre</th>
+				      <th>Nit</th>
+				      <th>Web:</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+							<td>{{ pedido.empresa.first_name|title }}</td>
+				      <td>{{ pedido.empresa.nit }}</td>
+				      <td><a href="{{ pedido.empresa.web }}">{{ pedido.empresa.web }}</td>
+				    </tr>
+				  </tbody>
+				</table>
+				<h4 class="ui horizontal divider header">
+				  <i class="in cart icon"></i>
+				  Items
+				</h4>
+				<table class="ui very basic striped unstackable table">
+					<thead>
+						<tr>
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Valor Unitario</th>
+							<th>Valor Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in items %}
+							<tr>
+								<td>{{ item.item.codigo }} - {{ item.item.descripcion }}</td>
+								<td>{{ item.cantidad|intcomma }}</td>
+								<td>${{ item.valor_unitario|intcomma }}</td>
+								<td>${{ item.valor_total|intcomma }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+					<div class="ui stackable three column grid">
+						<div class="column">
+							{% if certificado %}
+								<h4>Pedido Certificado</h4>
+								<img style="width:300px;" src="{{MEDIA_URL}}{{certificado.cedulaC}}" alt="">
+							{% else %}
+								<h4>Pedido certificado: No</h4>
+							{% endif %}
+						</div>
+					  <div class="column"><h4>Observaciones: {% if pedido.observacion %}{{pedido.observacion}}{% else %} Ninguna{% endif %}</h4></div>
+					  <div class="column"><h3 class="ui blue header"><i class="in cart large blue icon"></i>{{ items | length}} Items - Total: ${{ pedido.total|intcomma}}</h3></div>
+					</div>
+
+					<h4 class="ui horizontal divider header">
+						<i class="in cart icon"></i>
+						Tiempos
+					</h4>
+					<table class="ui very basic striped unstackable table">
+						<thead>
+							<tr>
+								<th>De Pedido</th>
+								<th>De Asignacion</th>
+								<th>De Entrega</th>
+							</tr>
+						</thead>
+						<tbody>
+								<tr>
+									<td>{% if tiempo.creado %}{{ tiempo.creado }}{% else %} No Asignado {% endif %}</td>
+									<td>{% if tiempo.despachado %}{{ tiempo.despachado }}{% else %} No Asignado {% endif %}</td>
+									<td>{% if tiempo.entregado %}{{ tiempo.entregado }}{% else %} No Asignado {% endif %}</td>
+								</tr>
+						</tbody>
+					</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

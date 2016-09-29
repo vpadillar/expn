@@ -1,0 +1,61 @@
+{% extends "exp/base_user.html" %}
+{% block title %}Actualizar Item{% endblock %}
+{% block content_user %}
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'pedido:list_item' %}" class="ui teal icon huge button">
+      <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Actualizar Item</a>
+    </div>
+  </div>
+  {% if mensaje %}
+      <div class="ui center aligned container row">
+        <div class="ui {{ mensaje.tipo }} message">
+          <div class=" content">
+            <div class="header">
+              {{ mensaje.texto }}
+            </div>
+          </div>
+        </div>
+      </div>
+   {% endif %}
+</div>
+
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+    <div class="column row">
+      <div class="column">
+        <h2 class="ui olive header">Item</h2>
+        <form method="POST" class="ui form">
+          {% csrf_token %}
+
+          <div class="two fields">
+            <div class="field {% if form.codigo.errors %}error{% endif %}">
+              {{form.codigo}}
+            </div>
+            <div class="field {% if form.presentacion.errors %}error{% endif %}">
+              {{ form.presentacion }}
+            </div>
+          </div>
+          <h2 class="ui header"></h2>
+          <div class="field {% if form.descripcion.errors %}error{% endif %}">
+            {{ form.descripcion }}
+          </div>
+          <h2 class="ui header"></h2>
+          <button type="submit" class="ui olive fluid large button">Actualizar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script>
+  $( document ).ready(function() {
+    $('.ui.dropdown').dropdown();
+  });
+</script>
+{% endblock %}

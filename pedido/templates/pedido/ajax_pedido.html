@@ -1,0 +1,50 @@
+{% load humanize %}
+{% if not pedidos %}
+<thead>
+	<tr>
+		<td>
+			<h2>No encontramos coincidencias</h2>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if pedidos.count > 0 %}
+	<thead>
+		<tr>
+			<th>Numero</th>
+			<th>Empresa</th>
+			<th>Supervisor</th>
+			<th>Alistador</th>
+			<th>Motorizado</th>
+			<th>Total</th>
+			<th>Entregado</th>
+			<th class="center aligned">Mas Info</th>
+		</tr>
+	</thead>
+		{% for pedido in pedidos %}
+			<tr>
+				<td>{{ pedido.num_pedido }}</td>
+				<td>{{ pedido.empresa.first_name|title }}</td>
+				<td>{{ pedido.supervisor.first_name|title }} {{ pedido.supervisor.last_name|title}}</td>
+				<td>{{ pedido.alistador.first_name|title }} {{ pedido.alistador.last_name|title }}</td>
+				<td>{% if pedido.motorizado %}{{ pedido.motorizado.first_name|title }} {{ pedido.motorizado.last_name|title }}{% else %} No asignado {% endif %}</td>
+				<td>${{ pedido.total|intcomma }}</td>
+				<td class="center aligned">{% if pedido.Entregado.tiempo_entrego %} <i class="checkmark large green icon"></i> {% else %} <i class="remove large red icon"> {% endif %}</td>
+				<td class="center aligned">
+					<a href="{% url 'domicilios:api_info_pedido' pedido.id %}" class="ui icon green"><i class="unhide large green icon"></i></a>
+					{% if request.session.cargo == 'ADMINISTRADOR' %}
+					<a href="{% url 'domicilios:api_edit_pedido' pedido.id %}" class="ui icon green"><i class="edit large green icon"></i></a>
+					{% endif %}
+					{% if pedido.motorizado %}
+						<a href="{% url 'domicilios:api_factura' pedido.id %}" class="ui icon green"><i class="print large green icon"></i></a>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr><td>
+
+		None! sorry</td></tr>
+	{% endif %}
+
+{% endif %}

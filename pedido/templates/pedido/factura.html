@@ -1,0 +1,135 @@
+{% extends "easy_pdf/base.html" %}
+
+{% block layout_style %}
+    <style type="text/css">
+        @page {
+            size: {{ pagesize|default:"A4" }};
+            margin-left: 1cm;
+            margin-right: 1cm;
+            margin-top: 2cm;
+            margin-bottom: 1cm;
+          }
+    </style>
+{% endblock %}
+
+{% block extra_style %}
+    <style type="text/css">
+        @font-face { font-family: Lato; src: url(fonts/Lato-Bol.ttf); font-weight: bold; }
+        @font-face { font-family: Lato; src: url(fonts/Lato-Reg.ttf); }
+        @font-face { font-family: "Lato Light"; src: url(fonts/Lato-Lig.ttf); }
+        td{
+          font-weight: normal;
+        }
+        .text-right{text-align: right;}
+    </style>
+{% endblock %}
+
+
+{% block content %}
+{% load humanize%}
+<strong>Fecha: </strong>{{pedido.fecha_pedido}} <br>
+<strong>N° Pedido {{pedido.empresa.first_name}}: </strong>{{pedido.num_pedido}} <br>
+<strong>N° Pedido Express Del Norte: </strong>{{ pedido.npedido_express }}
+<hr style="margin-top: 10px;">
+<table>
+  <tr>
+    <td><strong>Empresa:</strong></td>
+    <td class="text-right">{{empresa.first_name}}</td>
+  </tr>
+  <tr>
+    <td><strong>Nit:</strong></td>
+    <td class="text-right">{{empresa.nit}}</td>
+  </tr>
+</table>
+<hr style="margin-top: 10px;">
+<table>
+  <tr>
+    <td><strong>Cliente:</strong></td>
+    <td class="text-right">{{cliente.first_name|title}} {{cliente.last_name|title}}</td>
+  </tr>
+  <tr>
+    <td><strong>Identificación:</strong></td>
+    <td class="text-right">{{cliente.identificacion}}</td>
+  </tr>
+  <tr>
+    <td><strong>Celular:</strong></td>
+    <td class="text-right">{{cliente.telefono_celular}}</td>
+  </tr>
+  <tr>
+    <td><strong>Fijo:</strong></td>
+    <td class="text-right">{% if cliente.telefono_fijo %}{{cliente.telefono_fijo}}{% else %}No{% endif %}</td>
+  </tr>
+  <tr>
+    <td><strong>Direccion:</strong></td>
+    <td class="text-right">{{cliente.direccion}}</td>
+  </tr>
+  <tr>
+    <td><strong>Barrio:</strong></td>
+    <td class="text-right">{{cliente.barrio|title}}</td>
+  </tr>
+  <tr>
+    <td><strong>Zona:</strong></td>
+    <td class="text-right">{% if cliente.zona %}{{cliente.zona}}{% else %}No{% endif %}</td>
+  </tr>
+  <tr>
+    <td><strong>Ciudad:</strong></td>
+    <td class="text-right">{{cliente.ciudad}}</td>
+  </tr>
+</table>
+<hr style="margin-top: 10px;">
+<table>
+  <tr>
+    <td><strong>Supervidor:</strong></td>
+    <td class="text-right">{{pedido.supervisor.first_name|title}} {{pedido.supervisor.last_name|title}}</td>
+  </tr>
+  <tr>
+    <td><strong>Alistador:</strong></td>
+    <td class="text-right">{{pedido.alistador.first_name|title}} {{pedido.alistador.last_name|title}}</td>
+  </tr>
+  <tr>
+    <td><strong>Motorizado:</strong></td>
+    <td class="text-right">{{pedido.motorizado.first_name|title}} {{pedido.motorizado.last_name|title}}</td>
+  </tr>
+</table>
+<hr style="margin-top: 10px;">
+<table>
+  <tr>
+    <td><strong>Forma de Pago:</strong></td>
+    <td class="text-right">{{pedido.tipo_pago}}</td>
+  </tr>
+  <tr>
+    <td><strong>Observaciones:</strong></td>
+    <td class="text-right">{% if pedido.observacion %}{{pedido.observacion}}{% else %}Ninguna{% endif %}</td>
+  </tr>
+</table>
+<hr style="margin-top: 10px;">
+<p>
+  Listado de Productos Solicitados
+</p>
+<table>
+  {% for item in items %}
+    <tr>
+      <td>
+        {{item.item.codigo}} - {{item.item.descripcion}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+      {{item.cantidad|intcomma }} x  ${{item.valor_unitario|intcomma }}
+      </td>
+      <td class="text-right">
+        ${{item.valor_total|intcomma }}
+      </td>
+    </tr>
+  {% endfor %}
+  <tr style="border-top: 1px solid black; padding-top: 5px;">
+    <td >
+      <strong>Total:</strong>
+    </td>
+    <td class="text-right">
+      ${% if pedido.total %}{{pedido.total|intcomma }}{% else %}0{% endif %}
+    </td>
+  </tr>
+</table>
+
+{% endblock %}

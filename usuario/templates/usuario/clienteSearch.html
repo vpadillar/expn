@@ -1,0 +1,71 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Buscar Clientes{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'usuario:index_cliente' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Listar Clientes</a>
+    </div>
+	</div>
+	<div class="column">
+		{% if mensaje %}
+			<div class="ui center aligned container row">
+				<div class="ui {{ mensaje.tipo }} message">
+					<div class=" content">
+						<div class="header">
+							{{ mensaje.texto }}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				{% csrf_token %}
+				Presiona Enter en el campo de busqueda para ver todos los Clientes
+					<div class="ui icon fluid input">
+					<input type="text" name="search" id="search" autofocus placeholder="Buscar por Apellidos/Identificación">
+					<i class="search icon"></i>
+				</div>
+			</div>
+		</div>
+		<h4 class="ui horizontal divider header">
+			<i class="express-listar icon"></i>
+			Resultados
+		</h4>
+		<div class="column row">
+			<div class="column">
+				<table id="search-results" class="ui very basic striped unstackable table">
+					<thead>
+			        	<tr>
+			        		<th>Nombre</th>
+			        		<th>Apellidos</th>
+			        		<th>Identificacion</th>
+			        		<th></th>
+			        	</tr>
+			        </thead>
+			        <tbody>
+
+			        </tbody>
+				</table>
+			</div>
+		</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<script src="{% static 'api/js/tabla_ajax_cliente.js' %}"></script>
+	<script src="{% static 'api/js/clienteSearch.js' %}""></script>
+{% endblock %}

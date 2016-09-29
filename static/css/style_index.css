@@ -1,0 +1,26 @@
+/*Css Login*/
+body{
+  background: rgba(255,255,255,1);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 19%, rgba(218,218,218,1) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(19%, rgba(255,255,255,1)), color-stop(100%, rgba(218,218,218,1)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 19%, rgba(218,218,218,1) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 19%, rgba(218,218,218,1) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 19%, rgba(218,218,218,1) 100%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 19%, rgba(218,218,218,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dadada', GradientType=1 );
+}
+
+div#div-form{
+  margin-top: 100px;
+}
+
+div#notpassword{
+  margin-top: 20px;
+}
+
+  div#notpassword a{
+    color: #575757;
+    text-decoration: underline;
+  }
+  body > .grid {
+    height: 100%;}

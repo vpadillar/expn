@@ -1,0 +1,66 @@
+
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Rastreo{% endblock %}
+
+{% block addcss_user %}
+    <link rel="stylesheet" href="{% static 'css/alertify.core.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alertify.default.css' %}">
+{% endblock%}
+
+{% block content_user %}
+<div class="one column row">
+    <div class="column">
+        <div class="ui labeled huge input">
+            <a href="{% url 'pedido:index_pedido' %}" class="ui teal icon huge button">
+                <i class="express-atras icon"></i>
+            </a>
+            <a class="ui olive label">Rastreo</a>
+        </div>
+    </div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;margin-top:15px;">
+    <div class="center aligned column">
+        <div class="mapa-content ui stackable two column grid">
+            <div class="c lista">
+                <input type="search" name="search" placeholder="Search.." id="search">
+                <div class="contenedor">
+                    <img class="load" src="{% static 'img/loading.gif' %}" alt="loading.." />
+                    <!-- ul.lis_emp>li[name="empleado"]*5>(span{Un empleado}+ul>li*3>(span{un atributoo}))+input[type="radio"][name="selec"] -->
+                    <ul class="lis_emp"></ul>
+                </div>
+            </div>
+            <div class="c mapa">
+                  <iframe src="http://104.236.33.228:4000/?empresa={{ empresa }}&token={{ token }}" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="empresa" value="{% if empresa %} {{ empresa }} {% else %} nada {% endif%}">
+<input type="hidden" id="token" value="{{ token }}">
+{% csrf_token %}
+{% endblock %}
+
+{% block addjs %}
+<script src="{% static 'api/js/alertify.js' %}" type="text/javascript"></script>
+<!-- <script src="{{ STATIC_URL}}api/js/notificaciones_pedidos.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="{% static 'api/js/json2.js' %}"></script>
+<script type="text/javascript" src="{% static 'api/js/listar_motorizado_rastreo.js' %}"></script>
+<script type="text/javascript" src="{% static 'api/js/md5.js' %}"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkEwq_DBXFsYc2BzYZ3TNsWHn19kxZ2HM&callback=initMap" async defer></script> -->
+<link rel="stylesheet" href="{% static 'css/rastreo.css' %}">
+<script type="text/javascript" src="{% static 'api/js/md5.js' %}"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script type="text/javascript" src="{% static 'api/js/jquery.qrcode.js' %}"></script>
+<script type="text/javascript">
+  var socket = io('http://104.236.33.228:4000');
+  function enviarMOtorizado(){
+    console.log("esta en el socket");
+    console.log($('#token').val());
+      socket.emit('select-motorizado',{'token':$('#token').val(),'motorizado':'359291054481645'});
+      socket.emit('clear-motorizado',{'token':$('#token').val()});
+  }
+</script>
+<script type="text/javascript" src="{% static 'api/js/listar_motorizado_rastreo.js' %}"></script>
+{% endblock %}

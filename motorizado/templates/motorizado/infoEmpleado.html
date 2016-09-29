@@ -1,0 +1,114 @@
+{% extends "users/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Informacion del Empleado{% endblock %}
+{% block addcss %}
+	<link rel="stylesheet" href="{% static 'css/etiquetas_texto.css' %}">
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'domicilios:api_empleado_search' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Info Empleado</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+	  <h2 class="ui olive header">{{ empleado.get_full_name|title }}</h2>
+	  <div class="ui stackable three column grid">
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Username: <span>{{ empleado.username }}</span>
+				  <!--a class="detail">{{ empleado.username }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+			  <div class="ui olive big fluid label mod_tex">
+				  Tipo de Id: <span>{{ empleado.tipo_id }}</span>
+				  <!--a class="detail">{{ empleado.tipo_id }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Identificación: <span>{{ empleado.identificacion }}</span>
+				  <!--a class="detail">{{ empleado.identificacion }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Cargo: <span>{{ empleado.cargo }}</span>
+				  <!--a class="detail">{{ empleado.cargo }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Nacimiento: <span>{{ empleado.fecha_nacimiento|date }}</span>
+				  <!--a class="detail">{{ empleado.fecha_nacimiento|date }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Empresa: <span>{{ empleado.empresa.first_name|title }}</span>
+				  <!--a class="detail">{{ empleado.empresa.first_name|title }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Activo: <span>{% if empleado.is_active %}Sí{% else %}No{% endif %}</span>
+				  <!--a class="detail">{% if empleado.is_active %}Sí{% else %}No{% endif %}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Telefono Celular: <span>{{ empleado.telefono_celular }}</span>
+				  <!--a class="detail">{{ empleado.telefono_celular }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Telefono Fijo: <span>{% if empleado.telefono_fijo %}{{ empleado.telefono_fijo }}{% else %}No{% endif %}</span>
+				  <!--a class="detail">{% if empleado.telefono_fijo %}{{ empleado.telefono_fijo }}{% else %}No{% endif %}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Ciudad: <span>{{ empleado.ciudad|title }}</span>
+				  <!--a class="detail">{{ empleado.ciudad|title }}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Email: <span>{{ empleado.email }}</span>
+				  <!--a class="detail">{{ empleado.email }}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Dirección: <span>{{ empleado.direccion|title }}</span>
+				  <!--a class="detail">{{ empleado.direccion|title }}</a-->
+				</div>
+		  </div>
+			{% if motorizado %}
+				<div class="column">
+					<div class="ui olive big fluid label mod_tex">
+					  Licencia: <span>{{ motorizado.licencia }}</span>
+					  <!--a class="detail">{{ motorizado.licencia }}</a-->
+					</div>
+			  </div>
+				<div class="column mod_tex">
+					<div class="ui olive big fluid label mod_tex">
+					  Moto: <span><a class="detail" href="{% url 'domicilios:api_info_moto' moto.id %}"></a>{{ moto.placa }}</a></span>
+					  <!--a class="detail" href="{% url 'domicilios:api_info_moto' moto.id %}">{{ moto.placa }}</a-->
+					</div>
+			  </div>
+			{% endif %}
+			{% if motorizado == 0 and empleado.cargo == 'MOTORIZADO'%}
+				<h2>No hay moto asignada</h2>
+			{% endif %}
+		</div>
+  </div>
+</div>
+{% endblock %}

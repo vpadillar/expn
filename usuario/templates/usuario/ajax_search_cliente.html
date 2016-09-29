@@ -1,0 +1,32 @@
+{% if not clientes %}
+<thead>
+<th class="center aligned">
+	<tr>
+		<td>
+			<h2>No encontramos coincidencias</h2>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if clientes.count > 0 %}
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Identificación</th>
+			<th class="right aligned"></th>
+		</tr>
+	</thead>
+		{% for cliente in clientes %}
+			<tr>
+				<td>{{ cliente.first_name|title }}</td>
+				<td>{{ cliente.last_name|title }}</td>
+				<td>{{ cliente.identificacion }}</td>
+				<td class="right aligned"><a href="{% url 'domicilios:info_cliente' cliente.id %}" class="ui icon green "><i class="unhide large green icon"></i></a><a href="{% url 'domicilios:edit_cliente' cliente.id %}" class="ui icon green "><i class="express-editar large green icon"></i></a></td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr>None! sorry</tr>
+	{% endif %}
+
+{% endif %}

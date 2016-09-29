@@ -1,0 +1,73 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Informacion del cliente{% endblock %}
+{% block addcss %}
+	<link rel="stylesheet" href="{% static 'css/etiquetas_texto.css' %}">
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'usuario:list_tienda' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Info cliente</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+	  <h2 class="ui olive header"><span>{{ tienda.nombre }}</span></h2>
+	  <div class="ui stackable three column grid">
+		  <div class="column">
+			  <div class="ui olive big fluid label mod_tex">
+				  Nit: <span>{{ tienda.nit }}</span>
+				  <!--a class="detail">{{ cliente.tipo_id }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Referencia: <span>{{ tienda.referencia }}</span>
+				  <!--a class="detail">{{ cliente.identificacion }}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Ciudad: <span>{{ tienda.ciudad.nombre|title }}</span>
+				  <!--a class="detail">{{ cliente.telefono_celular }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Dirección: <span>{{ tienda.direccion }}</span>
+				  <!--a class="detail">{{ cliente.telefono_celular }}</a-->
+				</div>
+		  </div>
+		  <div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				Telefono Fijo: <span>{% if tienda.fijo %}{{ tienda.fijo }}{% else %}No{% endif %}</span>
+				  <!--a class="detail">{% if cliente.telefojo %}{{ cliente.telefono_fijo }}{% else %}No{% endif %}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Telefono Celular: <span>{% if tienda.celular %}{{ tienda.celular }}{% else %}No{% endif %}</span>
+				  <!--a class="detail">{{ cliente.ciudad|title }}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Latitud: <span>{{ tienda.latitud }}</span>
+				  <!--a class="detail">{{ cliente.barrio|title }}</a-->
+				</div>
+		  </div>
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Longitud: <span>{{ tienda.longitud }}</span>
+				  <!--a class="detail">{% if cliente.zona  %} {{ cliente.zona }} {% else %} No {% endif %}</a-->
+				</div>
+		  </div>
+		</div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% if not items %}
+<thead>
+	<tr>
+		<td>
+			<h2>No encontramos coincidencias</h2>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if items.count > 0 %}
+	<thead>
+		<tr>
+			<th>Codigo</th>
+			<th>Descripción</th>
+			<th>Presentación</th>
+			<th></th>
+		</tr>
+	</thead>
+		{% for item in items %}
+			<tr>
+				<td>{{ item.codigo }}</td>
+				<td>{{ item.descripcion|title }}</td>
+				<td>{{ item.presentacion }}</td>
+				<td class="left aligned">
+					<a href="{% url 'domicilios:api_edit_items' item.id %}" class="ui edit green"><i class="edit large green icon"></i></a>
+				</td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr><td>
+
+		None! sorry</td></tr>
+	{% endif %}
+
+{% endif %}

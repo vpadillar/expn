@@ -1,0 +1,119 @@
+{% extends "users/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Buscar Motos{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+		<a href="{% url 'domicilios:api_index' %}" class="ui teal icon huge button">
+	        Inicio
+      	  </a>
+	      <a href="{% url 'domicilios:api_index' %}" class="ui teal icon huge button">
+	        <i class="express-atras icon"></i>
+      	  </a>
+      <a class="ui olive label">Reporte</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid restar" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" action="{% url 'domicilios:api_add_moto' %}" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header restar">Descripción Búsqueda</h2>
+	    <div class="four fields">
+	    		<div>
+	    			<span>Fecha de Inicio</span>
+	    		</div>
+				<div class="">
+					<input id="inicio" maxlength="50" name="tipo" placeholder="Fecha de Inicio" type="date">
+				</div>
+				<div><span>Fecha de Fin</span></div>
+				<div class="">
+					<input id="fin" maxlength="50" name="tipo" placeholder="Fecha de Fin" type="date">
+				</div>
+				<div class="">
+					{{ form.ciudad }}
+				</div>
+				<div class="">
+					<input id="id_busq" maxlength="50" name="tipo" value="Buscar" type="button" class="ui olive fluid large button consulta" >
+				</div>
+	    </div>
+
+		</form>
+		<h4 class="ui horizontal divider header">
+		<i class="express-listar icon"></i>
+		Resultados
+		</h4>
+		<div class="column row">
+		<div class="column">
+			<table id="search-results" class="ui very basic striped unstackable table">
+				<thead>
+					<tr  class="center aligned">
+						<th rowspan="2">Numero</th>
+						<th rowspan="2">Cliente</th>
+						<th rowspan="2">Supervisor</th>
+						<th rowspan="2">Alistador</th>
+						<th rowspan="2">Motorizado</th>
+						<th rowspan="2">Total</th>
+						<th colspan="2">Tiempos</th>
+					</tr>
+					<tr>
+						<td>timepo1</td>
+						<td>timepo1</td>
+						<td>timepo1</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+						<td><label for="">hola mundo</label></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		  </div>
+		</div>
+{% endblock %}
+
+{% block addjs %}
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.plugin.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.datepick.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.datepick-es.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/browser.js' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var b = new Browser();
+			if(b.name != "chrome"){
+				$('#inicio').datepick();
+				$('#fin').datepick();
+			}
+		});
+	</script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<script type="text/javascript" src="{% static 'api/js/tabla_ajax_reporte.js' %}"></script>
+	<style type="text/css">
+		#id_busq{
+			margin-top: 0px !important;
+			padding-top: 14px !important;
+			padding-bottom: 14px !important;
+		}
+		input[type="date"]{
+			padding-top: 11px !important;
+			padding-bottom: 11px !important;
+		}
+
+		.restar{
+			margin-top: 0px !important;
+		}
+	</style>
+{% endblock %}

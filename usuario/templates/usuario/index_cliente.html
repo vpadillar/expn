@@ -1,0 +1,44 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Clientes{% endblock %}
+{% block addcss_user %}<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">{% endblock %}
+{% block content_user %}
+<style type="text/css"></style>
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'usuario:index_general' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Clientes</a>
+    </div>
+  </div>
+    {% if mensaje %}
+  <div class="ui center aligned container column">
+  <div class="ui {{ mensaje.tipo }} message">
+    <div class=" content">
+    <div class="header">
+      {{ mensaje.texto }}
+    </div>
+    </div>
+  </div>
+  </div>
+  {% endif %}
+</div>
+<div class="one column row">
+  <div class="center aligned column">
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'usuario:add_cliente' %}" class="item">
+        <h3><i class="express-add-cliente huge icon"></i></h3>
+        Nuevo Cliente
+      </a>
+    </div>
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'usuario:list_cliente' %}" class="item">
+        <h3><i class="material-icons huge">list</i></h3>
+        Listar Clientes
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

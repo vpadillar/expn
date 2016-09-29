@@ -1,0 +1,11 @@
+Django==1.8.2
+Pillow==2.6.1
+django-suit
+django-easy-pdf
+xhtml2pdf==0.0.5
+reportlab>=2.7,<3
+supra
+socketIO-client
+psycopg2
+html5lib==1.0b8
+https://pypi.python.org/packages/source/d/django-braces/django-braces-1.8.1.tar.gz

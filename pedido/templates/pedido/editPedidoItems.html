@@ -1,0 +1,104 @@
+{% extends "users/base_user.html" %}
+{% load humanize %}
+{% block title %}Editar Pedido Items{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+
+		  <a class="ui olive label">Editar Pedido</a>
+		</div>
+	</div>
+	{% if mensaje %}
+  <div class="ui center aligned container column">
+	<div class="ui warning message">
+	  <div class=" content">
+		<div class="header">
+		  {{ error }}
+		</div>
+	  </div>
+	</div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				<h2 class="ui olive header">Item</h2>
+				<form method="POST" class="ui form">
+					{% csrf_token %}
+					<div class="four fields">
+						<div class="field {% if form.item.errors %}error{% endif %} ui action input">
+							{{form.item}}
+						</div>
+						<div class="field {% if form.cantidad.errors %}error{% endif %}">
+			        {{ form.cantidad|intcomma|safe }}
+			      </div>
+						<div class="field {% if form.cantidad.errors %}error{% endif %}">
+			        {{ form.valor_unitario|intcomma|safe }}
+			      </div>
+						<div class="field">
+			        <button type="submit" class="ui olive fluid  button">Añadir</button>
+			      </div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+		{% if items %}
+		<h2 class="ui olive header">Items del Pedido {{pedido.empresa.first_name}} {{pedido.num_pedido}} <br> Express Del Norte {{pedido.npedido_express}}</h2>
+		<div class="column row">
+			<div class="column">
+				<table class="ui very basic striped unstackable table">
+					<thead>
+						<tr>
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Valor Unitario</th>
+							<th>Valor Total</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in items %}
+							<tr>
+								<td>{{ item.item.codigo }} - {{ item.item.descripcion }}</td>
+								<td>{{ item.cantidad|intcomma }}</td>
+								<td>${{ item.valor_unitario|intcomma }}</td>
+								<td>${{ item.valor_total|intcomma }}</td>
+								<td><a href="{% url 'domicilios:api_delete_pedido_items_edit' item.id %}" class="ui icon green"><i class="express-denegado large red icon"></i></a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<h2 class="ui header"></h2>
+		<form action="/plataforma/pedido/total/edit/" method="POST" class="ui form">
+			{% csrf_token %}
+			<input type="hidden" name="pedido" value="{{ pedido.id }}">
+			<div class="two fields">
+				<div class="field">
+					<h3 class="ui blue header"><i class="in cart large blue icon"></i>{{ items | length}} Items - Total: ${{total|intcomma }}</h3>
+				</div>
+				<div class="field">
+					<button type="submit" class="ui olive fluid  button">Finalizar</button>
+				</div>
+			</div>
+		</form>
+		{% else %}
+		<h2 class="ui olive header">No ha agregado un items al pedido</h2>
+		{% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script>
+	$( document ).ready(function() {
+		$('.ui.dropdown').dropdown();
+	});
+</script>
+{% endblock %}

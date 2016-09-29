@@ -1,0 +1,100 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Informacion de la Moto{% endblock %}
+{% block addcss %}
+	<link rel="stylesheet" href="{% static 'css/etiquetas_texto.css' %}">
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'motorizado:list_moto' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Info Moto</a>
+    </div>
+	</div>
+</div>
+
+<div class="ui container grid" style="margin-bottom:50px;">
+	<div class="center aligned column">
+		<h2 class="ui teal header">Descripción General</h2>
+		<div class="ui stackable two column grid">
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Placa: <span>{{ moto.placa }}</span>
+				  <!--a class="detail">{{ moto.placa }}</a-->
+				</div>
+		  	</div>
+		  	<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Tarjeta de Propieda: <span>{{ moto.t_propiedad }}</span>
+				  <!--a class="detail">{{ moto.t_propiedad }}</a-->
+				</div>
+		  	</div>
+		</div>
+		<div class="ui stackable three column grid">
+			<div class="column">
+			  	<div class="ui olive big fluid label mod_tex">
+				  Tipo: <span>{{ moto.tipo }}</span>
+				  <!--a class="detail">{{ moto.tipo }}</a-->
+				</div>
+		  	</div>
+		  	<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Marca: <span>{{ moto.marca }}</span>
+				  <!--a class="detail">{{ moto.marca }}</a-->
+				</div>
+		  	</div>
+		  	<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+				  Empresa: <span>{{ moto.empresaM }}</span>
+				  <!--a class="detail">{{ moto.empresaM }}</a-->
+				</div>
+		  	</div>
+		</div>
+		<h2 class="ui teal header">Soat</h2>
+		<div class="ui stackable three column grid">
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+					Numero: <span>{{ soat.numeroS }}</span>
+					<!--a href="detail">{{ tecno.numeroT }}</a-->
+				</div>
+			</div>
+			<div class="column">
+				<div class=" ui olive big fluid label mod_tex">
+					Fecha de Expedicion: <span>{{ soat.fecha_expedicionS|date }}</span>
+					<!--a href="detail">{{ tecno.fecha_expedicionS|date }}</a-->
+				</div>
+			</div>
+			<div class="column">
+				<div class=" ui olive big fluid label mod_tex">
+					Fecha de Expiracion: <span>{{ soat.fecha_expiracionS|date }}</span>
+					<!--a href="detail">{{ tecno.fecha_expiracionS|date }}</a-->
+				</div>
+			</div>
+		</div>
+		<h2 class="ui teal header">Técnico-mecánica</h2>
+		<div class="ui stackable three column grid">
+			<div class="column">
+				<div class="ui olive big fluid label mod_tex">
+					Numero: <span>{{ tecno.numeroT }}</span>
+					<!--a href="detail">{{ tecno.numeroT }}</a-->
+				</div>
+			</div>
+			<div class="column">
+				<div class=" ui olive big fluid label mod_tex">
+					Fecha de Expedicion: <span>{{ tecno.fecha_expedicionT|date }}</span>
+					<!--a href="detail">{{ tecno.fecha_expedicionT|date }}</a-->
+				</div>
+			</div>
+			<div class="column">
+				<div class=" ui olive big fluid label mod_tex">
+					Fecha de Expiracion: <span>{{ tecno.fecha_expiracionT|date }}</span>
+					<!--a href="detail">{{ tecno.fecha_expiracionT|date }}</a-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

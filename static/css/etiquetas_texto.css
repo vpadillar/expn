@@ -1,0 +1,9 @@
+div.mod_tex{
+	white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.mod_tex span{
+	color:black;
+}

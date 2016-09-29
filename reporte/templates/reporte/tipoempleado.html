@@ -1,0 +1,141 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Clasificación de Empleados{% endblock %}
+{% block addcss_user %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/flora.datepick.css' %}">
+	<style type="text/css">
+		#id_busq{
+			margin-top: 0px !important;
+			padding-top: 14px !important;
+			padding-bottom: 14px !important;
+		}
+		input[type="date"]{
+			padding-top: 11px !important;
+			padding-bottom: 11px !important;
+		}
+
+		.restar{
+			margin-top: 0px !important;
+		}
+
+		input[name="envio"]{
+			height: 42px;
+    		width: 42px;
+		}
+
+		#tipo,#id_ciudad,#tienda{
+			height: 42px;
+		}
+
+	</style>
+{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'reporte:index_reporte' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Clasificacion de Empleados</a>
+    </div>
+	</div>
+	{% if mensaje %}
+  <div class="ui center aligned container row">
+    <div class="ui {{ mensaje.tipo }} message">
+      <div class=" content">
+        <div class="header">
+          {{ mensaje.texto }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+   <div class="center aligned column">
+		<form method="POST" action="" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header restar">Descripción Búsqueda</h2>
+	   		<div class="nine fields">
+	   			<div class="">
+					{{ form.ciudad }}
+				</div>
+				<div>
+					<select id="tienda">
+						<option value="0" selected>Tienda</option>
+					</select>
+				</div>
+				<div class="">
+					<select name="" id="tipo">
+						<option value="">Tipo de empleado</option>
+						<option value="MOTORIZADO">Motorizado</option>
+						<option value="ALISTADOR">Alistador</option>
+						<option value="SUPERVISOR">Supervisor</option>
+					</select>
+				</div>
+	    		<div>
+	    			<span>Fecha de Inicio</span>
+	    		</div>
+				<div class="">
+					<input id="inicio" maxlength="50" name="tipo" placeholder="Fecha de Inicio" type="date">
+				</div>
+				<div><span>Fecha de Fin</span></div>
+				<div class="">
+					<input id="fin" maxlength="50" name="tipo" placeholder="Fecha de Fin" type="date">
+				</div>
+				<div><span>Estado</span></div>
+				<div class="">
+					<input type="checkbox" id="envio" name="envio" value="envio" checked>
+				</div>
+				<div class="">
+					<input id="id_busq" maxlength="50" name="tipo" value="Buscar" type="button" class="ui olive fluid large button consulta" >
+				</div>
+		    </div>
+		</form>
+		<div class="two fields">
+						<div class="field {% if formSoat.fecha_expedicionS.errors %}error{% endif %}">
+							{{ formSoat.fecha_expedicionS }}
+						</div>
+						<div class="field {% if formSoat.fecha_expiracionS.errors %}error{% endif %}">
+							{{ formSoat.fecha_expiracionS }}
+						</div>
+					</div>
+		<h4 class="ui horizontal divider header">
+			<i class="express-listar icon"></i>
+			Resultados
+			</h4>
+		<div class="column row">
+			<div class="row left aligned">
+				<table id="search-results" class="ui very basic striped unstackable table">
+					<thead>
+						<tr  class="center aligned">
+							<th >Cargo</th>
+							<th >Nombre</th>
+							<th >Documento</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="men" title="Informacion de Empleado"><span></span></div>
+{% endblock %}
+
+{% block addjs %}
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<script src="{% static 'api/js/tipo_empleado.js' %}"></script>
+	<script src="{% static 'api/js/tabla_ajax_info_repor_empleados.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.plugin.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.datepick.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.datepick-es.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/browser.js' %}"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="{% static 'api/js/tipo_empleado_api.js' %}"></script>
+
+{% endblock %}

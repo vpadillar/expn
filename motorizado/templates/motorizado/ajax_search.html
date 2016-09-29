@@ -1,0 +1,54 @@
+{% if not motos %}
+<thead>
+<th class="center aligned">
+	<tr>
+		<td>
+			<h2>No encontramos coincidencias</h2>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if motos.count > 0 %}
+	<thead>
+		<tr>
+			<th>Placa</th>
+			<th>Tipo</th>
+			<th>Marca</th>
+			<th>Tarjeta</th>
+			<th>Soat</th>
+			<th>Tecnomecanica</th>
+			<th class="left aligned"></th>
+		</tr>
+	</thead>
+		{% for moto in motos %}
+			<tr>
+				<td>{{ moto.placa }}</td>
+				<td>{{ moto.tipo }}</td>
+				<td>{{ moto.marca }}</td>
+				<td>{{ moto.t_propiedad }}</td>
+				<td>{{ moto.soat }}</td>
+				<td>{{ moto.tecno }}</td>
+				<td class="left aligned">
+					<a href="{% url 'domicilios:api_info_moto' moto.id %}" class="ui icon green"><i class="unhide large green icon"></i></a>
+					<a href="{% url 'domicilios:api_edit_moto' moto.id %}" class="ui icon green "><i class="express-editar large green icon"></i></a>
+					<a id="eliminar" href="{% url 'domicilios:api_delete_moto' moto.id %}" class="ui icon green"><i class="trash outline large red icon"></i></a>
+				</td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr>None! sorry</tr>
+	{% endif %}
+
+{% endif %}
+
+<script>
+	var eliminar  = document.getElementById('eliminar');
+	eliminar.addEventListener('click',function(e){
+		var dialog = confirm('¿Esta seguro de eliminar esta moto?');
+		if (dialog == true){
+			return true;
+		}else{
+			e.preventDefault();
+		}
+	});
+</script>

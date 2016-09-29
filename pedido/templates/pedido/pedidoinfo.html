@@ -1,0 +1,72 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Nuevo Item{% endblock %}
+{% block addcss_user %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/flora.datepick.css' %}">
+	<style type="text/css">
+		#id_busq{
+			margin-top: 0px !important;
+			padding-top: 14px !important;
+			padding-bottom: 14px !important;
+		}
+	</style>
+{% endblock %}
+{% block content_user %}
+
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" action="{% url 'usuario:add_cliente' %}" class="ui form">
+			{% csrf_token %}
+        <h2 class="ui teal header">Descripción de Pedido</h2>
+	    <div class="two fields">
+				<div class="field">
+					<input type="text" id = "pedido" placeholder="Digite el Numero de pedido">
+				</div>
+				<div class="field">
+					<input id="id_busq" maxlength="50" name="tipo" value="Buscar" type="button" class="ui olive fluid large button consulta" >
+				</div>
+	    </div>
+        <h2 class="ui teal header">Información de Pedido</h2>
+        <div class="two fields">
+				<div class="field">
+					<h2 class="ui teal header">Cliente</h2>
+				</div>
+				<div class="field">
+					<input type="text" id="cliente" class="clear" disabled>
+				</div>
+	    </div>
+        <div class="two fields">
+				<div class="field">
+					<h2 class="ui teal header">Tiempo de creación</h2>
+				</div>
+				<div class="field">
+					<input type="text" id="creado" class="clear" disabled>
+				</div>
+	    </div>
+        <div class="two fields">
+				<div class="field">
+					<h2 class="ui teal header">Tiempo de alistamiento</h2>
+				</div>
+				<div class="field">
+					<input type="text" id="alistamiento" class="clear" disabled>
+				</div>
+	    </div>
+        <div class="two fields">
+				<div class="field">
+					<h2 class="ui teal header">Tiempo de entrega</h2>
+				</div>
+				<div class="field">
+					<input type="text" id="entrega" class="clear" disabled>
+				</div>
+	    </div>
+		</form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block addjs %}
+<script src="{% static 'api/js/jquery.js' %}"></script>
+<script src="{% static 'api/js/jquery.min.js' %}"></script>
+<script src="{% static 'api/js/info_pedido_cliente.js' %}"></script>
+{% endblock %}

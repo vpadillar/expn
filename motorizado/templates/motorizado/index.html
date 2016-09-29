@@ -1,0 +1,50 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Motorizado{% endblock %}
+{% block addcss_user %}<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">{% endblock %}
+{% block content_user %}
+<style type="text/css"></style>
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'usuario:index_general' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Motos</a>
+    </div>
+  </div>
+  {% if mensaje %}
+  <div class="ui center aligned container row">
+    <div class="ui {{ mensaje.tipo }} message">
+      <div class=" content">
+        <div class="header">
+          {{ mensaje.texto }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<div class="one column row">
+  <div class="center aligned column">
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'motorizado:add_moto' %}" class="item">
+        <h3><i class="material-icons huge">motorcycle</i></h3>
+        Nueva Moto
+      </a>
+    </div>
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'motorizado:list_moto' %}"class="item">
+        <h3><i class="material-icons huge">list</i></h3>
+        Listar Motos
+      </a>
+    </div>
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'motorizado:asignar_moto' %}"class="item">
+        <h3><i class="material-icons huge">motorcycle</i><i class="material-icons">add</i><i class="material-icons huge">perm_identity</i></h3>
+        Asignar Moto
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

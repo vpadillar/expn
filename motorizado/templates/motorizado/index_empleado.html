@@ -1,0 +1,56 @@
+{% extends "users/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Empleados{% endblock %}
+{% block addcss_user %}<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">{% endblock %}
+{% block content_user %}
+<style type="text/css"></style>
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'domicilios:api_index' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Empleados</a>
+    </div>
+  </div>
+  {% if mensaje %}
+      <div class="ui center aligned container row">
+        <div class="ui {{ mensaje.tipo }} message">
+          <div class=" content">
+            <div class="header">
+              {{ mensaje.texto }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+</div>
+<div class="one column row">
+  <div class="center aligned column">
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'domicilios:api_add_empleado' %}" class="item">
+        <h3><i class="express-empleados huge icon"></i></h3>
+        Nuevo Empleado
+      </a>
+    </div>
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'domicilios:api_add_motorizado' %}" class="item">
+        <h3><i class="express-motorizado huge icon"></i></h3>
+        Nuevo motorizado
+      </a>
+    </div>
+    <div class="ui vertical compact labeled icon inverted huge teal menu">
+      <a href="{% url 'domicilios:api_view_motorizado' %}" class="item">
+        <h3><i class="express-listar huge icon"></i></h3>
+        Listar Motorizado
+      </a>
+    </div>
+    <div class="ui vertical compact labeled icon inverted teal huge menu">
+      <a href="{% url 'domicilios:api_empleado_search' %}"class="item">
+        <h3><i class="express-listar huge icon"></i></h3>
+        Listar Empleados
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

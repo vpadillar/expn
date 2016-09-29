@@ -1,0 +1,53 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Mis Pedidos{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      {% if request.session.cargo == 'ALISTADOR' or request.session.cargo == 'MOTORIZADO' %}
+      <a href="{% url 'usuario:index_general' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      {% else %}
+      <a href="{% url 'pedido:index_pedido' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      {% endif %}
+      <a class="ui olive label">Mis Pedidos</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				<table id="search-results" class="ui very basic striped unstackable table">
+						<thead>
+								<tr>
+									<th>Codigo</th>
+									<th>Numero Express</th>
+									<th>Fecha</th>
+									<th>Mas Información</th>
+								</tr>
+						</thead>
+						{% for pedido in pedidos %}
+						<tr>
+							<td>{{ pedido.num_pedido }}</td>
+							<td>{{ pedido.npedido_express }}</td>
+							<td>{{ pedido.fecha_pedido }}</td>
+							<td><a href="{% url 'domicilios:api_info_pedido' pedido.id %}" class="ui icon green"><i class="unhide large green icon"></i></a></td>
+						</tr>
+						{% endfor %}
+				</table>
+			</div>
+		</div>
+  </div>
+</div>
+{% endblock %}
+{% block addjs %}
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<script type="text/javascript" src="{% static 'api/js/tabla_ajax_mis_pedidos.js' %}"></script>
+{% endblock %}

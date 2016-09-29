@@ -1,0 +1,41 @@
+{% extends "users/base_user.html" %}
+{% block title %}Cambiar Contraseña Empleado{% endblock %}
+{% block content_user %}
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'domicilios:api_edit_info' empleado.id %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Cambiar Contraseña</a>
+    </div>
+    {% if mensaje %}
+  		<div class="ui center aligned container row">
+    		<div class="ui {{ mensaje.tipo }} message">
+    			<div class=" content">
+        			<div class="header">
+          				{{ mensaje.texto }}
+        			</div>
+		        </div>
+    		</div>
+  		</div>
+  	{% endif %}
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<form method="POST" class="ui form">
+			{% csrf_token %}
+			<h2 class="ui teal header">&nbsp;</h2>
+	    <div class="two fields">
+	      <div class="field {% if form.password.errors %}error{% endif %}">
+	        {{ form.password }}
+	      </div>
+	      <div class="field">
+					<button type="submit" class="ui olive fluid button">Actualizar</button>
+	      </div>
+	    </div>
+		</form>
+  </div>
+</div>
+{% endblock %}

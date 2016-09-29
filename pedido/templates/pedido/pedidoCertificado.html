@@ -1,0 +1,66 @@
+{% extends "users/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Certifica Pedido{% endblock %}
+{% block content_user %}
+<div class="one column row">
+  <div class="column">
+    <div class="ui labeled huge input">
+      <a href="{% url 'domicilios:api_index' %}" class="ui teal icon huge button">
+      <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Correo Certificado</a>
+    </div>
+  </div>
+  {% if mensaje %}
+      <div class="ui center aligned container row">
+        <div class="ui {{ mensaje.tipo }} message">
+          <div class=" content">
+            <div class="header">
+              {{ mensaje.texto }}
+            </div>
+          </div>
+        </div>
+      </div>
+   {% endif %}
+</div>
+
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+    <div class="column row">
+      <div class="column">
+        <h2 class="ui olive header">Correo Certificado</h2>
+        <form method="POST" class="ui form" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="two fields">
+            <div class="field {% if form.pedidoC.errors %}error{% endif %}">
+              {{form.pedidoC}}
+            </div>
+             <div class="field {% if form.cedulaC.errors %}error{% endif %}">
+              <div class="ui action {% if form.cedulaC.errors %}error field{% endif %} input btn-file">
+                <input id="target" placeholder="Search..." readonly="" type="text">
+                <label for="id_cedulaC" class="ui olive icon button">
+                  <i class="photo icon"></i>
+                </label>
+              </div>
+              {{ form.cedulaC }}
+        </div>
+          </div>
+          <h2 class="ui header"></h2>
+          <button type="submit" class="ui olive fluid large button">Certificar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script>
+  $( document ).ready(function() {
+    var Pedido = document.getElementById('id_pedidoC');
+    Pedido.options[0].innerHTML = "Pedido";
+    $('.ui.dropdown').dropdown();
+  });
+</script>
+{% endblock %}

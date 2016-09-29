@@ -1,0 +1,72 @@
+{% extends "exp/base_user.html" %}
+{% load staticfiles %}
+{% block title %}Reporte Empleados {% endblock %}
+{% block content_user %}
+
+<div class="one column row">
+	<div class="column">
+		<div class="ui labeled huge input">
+      <a href="{% url 'reporte:index_reporte' %}" class="ui teal icon huge button">
+        <i class="express-atras icon"></i>
+      </a>
+      <a class="ui olive label">Listar Empleados</a>
+    </div>
+	</div>
+</div>
+<div class="ui container grid" style="margin-bottom:50px;">
+  <div class="center aligned column">
+		<div class="column row">
+			<div class="column">
+				<div id="acordeon" >
+					{% if empleados %}
+						{% for x in empleados %}
+							<h3><label for="emp{{ x.id }}">{{ x.first_name}} {{ x.last_name }} -- {{ x.cargo}}</label></h3>
+						    <div id="emp{{ x.id }}" class="com_emp">
+						    	<input type="radio" name="emp" value="{{ x.id }}" style="visibility:hidden;">
+								<div><p>
+							    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+							    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+							    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+							    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+							    </p>
+							    <p>
+							    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+							    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+							    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+							    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+							    </p>
+							    <p>
+							    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+							    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+							    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+							    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+							    </p></div>
+						    </div>
+						{% endfor %}
+					{% else %}
+						<h3>No existen empledos registrados</h3>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block addjs %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-aco' %}rdion.css">
+    <script type="text/javascript">
+		$( "#acordeon").accordion();
+    </script>
+	<script src="{% static 'api/js/jquery.js' %}"></script>
+	<script src="{% static 'api/js/jquery.min.js' %}"></script>
+	<script src="{% static 'api/js/dataTables.js' %}"></script>
+	<!--script type="text/javascript" src="{{ STATIC_URL }}api/js/tabla_load_ajax_reporte_empleados.js"></script-->
+
+	<script src="{% static 'api/js/reporte_empleados.js' %}" ></script>
+
+{% endblock %}

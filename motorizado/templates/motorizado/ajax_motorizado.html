@@ -1,0 +1,36 @@
+{% if not motorizados %}
+<thead>
+<th class="center aligned">
+	<tr>
+		<td>
+			<h2>No encontramos coincidencias</h2>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if motorizados.count > 0 %}
+		<thead>
+			<tr>
+				<th>Identificacion</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Moto</th>
+				<th>Identificado Gps</th>
+			</tr>
+		</thead>
+		{% for motorizado in motorizados %}
+			<tr>
+				<td>{{ motorizado.empleado.tipo_id }}.  {{ motorizado.empleado.identificacion }}</td>
+				<td>{{ motorizado.empleado.first_name|title }}</td>
+				<td>{{ motorizado.empleado.last_name|title }}</td>
+				<td><a href="{% url 'domicilios:api_info_moto' motorizado.moto.id %}">{{ motorizado.moto }}</a></td>
+				<td>{{ motorizado.identifier }}</td>
+				<td class="left aligned">
+					<a href="{% url 'domicilios:api_edit_motorizado' motorizado.id %}" class="ui icon green"><i class="express-editar large green icon"></i></a>
+				</td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr>None! sorry</tr>
+	{% endif %}
+{% endif %}

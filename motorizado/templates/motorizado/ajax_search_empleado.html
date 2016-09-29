@@ -1,0 +1,51 @@
+{% if not empleados %}
+<thead>
+	<tr>
+		<td>
+			<h2>No encontramos coincidencias</h2>
+		</td>
+	</tr>
+</thead>
+{% else %}
+	{% if empleados.count > 0 %}
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Identificación</th>
+			<th>Cargo</th>
+			<th>Empresa</th>
+			<th>Activo</th>
+			<th></th>
+		</tr>
+	</thead>
+		{% for empleado in empleados %}
+			<tr>
+				<td>{{ empleado.first_name }}</td>
+				<td>{{ empleado.last_name }}</td>
+				<td>{{ empleado.identificacion }}</td>
+				<td>{{ empleado.cargo }}</td>
+				<td>{{ empleado.empresa.first_name }}</td>
+				{% if empleado.is_active %}
+					<td>Activo</td>
+				{% else %}
+					<td>Inactivo</td>
+				{% endif %}
+				<td class="right aligned">
+					<a href="{% url 'domicilios:api_info_empleado' empleado.id %}" class="ui icon green"><i class="unhide large green icon"></i></a>
+					<a href="{% url 'domicilios:api_edit_info' empleado.id %}" class="ui icon green"><i class="express-editar large green icon"></i></a>
+					{% if empleado.is_active %}
+					<a href="{% url 'domicilios:api_status' empleado.id %}" class="ui icon red"><i class="express-denegado large red icon"></i></a>
+					{% else %}
+					<a href="{% url 'domicilios:api_status' empleado.id %}" class="ui icon green"><i class="checkmark large green icon"></i></a>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr><td>
+
+		None! sorry</td></tr>
+	{% endif %}
+
+{% endif %}
